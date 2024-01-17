@@ -1,0 +1,201 @@
+{% liquid
+	assign image = section.settings.desktop_image
+	assign mobile_image = section.settings.mobile_image
+  assign content_position = section.settings.content_position
+  assign mobile_content_position = section.settings.mobile_content_position
+  assign blocks = section.blocks
+%}
+<section class="relative h-[500px] md:h-[calc(100vh-var(--header-height))]">
+  {% comment %}
+    Image Holder
+  {% endcomment %}
+  <div class="w-full h-full absolute overflow-hidden md:before:content-none before:content-[''] before:block before:w-full before:h-full before:bg-black before:bg-opacity-50 before:absolute before:left-0">
+    {%- if image -%}
+      <img src="{{ image | image_url }}" {% if mobile_image %}class="w-full h-full object-cover hidden md:block"{% endif %} width="{{ image.src.width }}" height="{{ image.src.height }}" alt="{{ image.alt }}" />
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+    {%- endif -%}
+    {%- if mobile_image -%}
+      <img class="md:hidden w-full h-full object-cover" src="{{ mobile_image | image_url }}" width="{{ mobile_image.src.width }}" height="{{ mobile_image.src.height }}" alt="{{ mobile_image.alt }}" />
+    {%- endif -%}
+  </div>
+  {% comment %} Text Content {% endcomment %}
+  {% if blocks.size > 0 %}
+    <div class="container h-full relative py-10 lg:py-20">
+      <div class="flex h-full w-full
+        {% if mobile_content_position == "top" %}
+          items-start
+        {% elsif content_position == "bottom" %}
+          items-end
+        {% else %}
+          items-center
+        {% endif %}
+
+        {% if content_position == "middle-left" %}
+          md:items-center md:justify-start
+        {% elsif content_position == "middle-center" %}
+          md:items-center md:justify-center
+        {% elsif content_position == "middle-right" %}
+          md:items-center md:justify-end
+        {% elsif content_position == "bottom-left" %}
+          md:items-end md:justify-start
+        {% elsif content_position == "bottom-center" %}
+          md:items-end md:justify-center
+        {% elsif content_position == "bottom-right" %}
+          md:items-end md:justify-end
+        {% endif %}
+      ">
+        <di class="max-w-[500px] px-6 md:p-10 md:bg-primary text-white md:bg-opacity-50 rounded-md">
+          {% for block in blocks %}
+            {% case block.type %}
+              {% when 'heading' %}
+                <h1 class="text-4xl font-bold tracking-wide mb-4 text-inherit">{{ block.settings.heading }}</h1>
+              
+              {% when 'text' %}
+                {{ block.settings.text }}
+              {% when 'button' %}
+                <div class="mt-4">
+                  <a class="button button--secondary button--outline" href="{{ block.settings.button_url }}">{{ block.settings.button_text }}</a>
+                </div>
+
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Image banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "header",
+      "content": "Content Position"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Desktop",
+      "options": [
+        {
+          "value": "middle-left",
+          "label": "Middle left"
+        },
+        {
+          "value": "middle-center",
+          "label": "Middle center"
+        },
+        {
+          "value": "middle-right",
+          "label": "Middle right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "middle-left"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_position",
+      "label": "Mobile",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Image with text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Content",
+          "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 1,
+      "settings": [
+        {
+          "id": "button_text",
+          "type": "text",
+          "label": "Button label",
+          "default": "Shop Now",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "id": "button_link",
+          "type": "url",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Banner",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

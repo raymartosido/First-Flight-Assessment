@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "image_banner": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_8JQ3dR": {
+          "type": "heading",
+          "settings": {
+            "heading": "Journey starts now"
+          }
+        },
+        "text_4f99BY": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>"
+          }
+        },
+        "button_Kpkdt8": {
+          "type": "button",
+          "settings": {
+            "button_text": "Shop Now",
+            "button_link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "heading_8JQ3dR",
+        "text_4f99BY",
+        "button_Kpkdt8"
+      ],
+      "settings": {
+        "desktop_image": "shopify:\/\/shop_images\/in-flight-over-mountains.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/snow-covered-black-rocked-peaks.jpg",
+        "content_position": "middle-left",
+        "mobile_content_position": "center"
+      }
+    },
+    "feature_product_PPkNNV": {
+      "type": "feature-product",
+      "settings": {
+        "product": "the-complete-snowboard",
+        "show_vendor": true
+      }
+    },
+    "resort_forecast_y6Jmtr": {
+      "type": "resort-forecast",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "image_banner",
+    "feature_product_PPkNNV",
+    "resort_forecast_y6Jmtr"
+  ]
+}
