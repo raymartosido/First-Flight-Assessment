@@ -60,3 +60,5 @@ To run the project, follow these steps:
 3. Build project for Production:
     <pre>pnpm run build</pre>
 
+## Preview link 
+- Shopify preview link: [First Flight Assessment](https://first-flight-online.myshopify.com/?preview_theme_id=132834918538)
