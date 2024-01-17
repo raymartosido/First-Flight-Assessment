@@ -15,7 +15,7 @@
       </template>
 
       <template v-else>
-        <div class="space-y-2 transition-all duration-300 ease-in-out fade-in" v-if="formattedResort">
+        <div class="space-y-2 transition-all duration-300 ease-in-out fade-in" v-if="Object.keys(formattedResort).length > 0">
           <div class="mb-3">
             <a :href="formattedResort.url" target="_blank" class="inline-block text-xl font-bold">${formattedResort.name}</a>
             <div class="text-sm">${formattedResort.region}</div>
